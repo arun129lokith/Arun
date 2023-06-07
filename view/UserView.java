@@ -20,7 +20,6 @@ public class UserView {
     private static final PostView POST_VIEW = new PostView();
     private static Long userId = 0l;
 
-
     public static void main(String[] args) {
         final UserView userView = new UserView();
 
@@ -144,9 +143,11 @@ public class UserView {
      */
     public User getUser() {
         System.out.println("Enter Your UserId:");
-        //System.out.println(USER_CONTROLLER.getUser(Long.valueOf(SCANNER.nextLine())));
+        final User userDetail = USER_CONTROLLER.getUser(Long.valueOf(SCANNER.nextLine()));
 
-        return USER_CONTROLLER.getUser(Long.valueOf(SCANNER.nextLine()));
+        System.out.println(userDetail);
+
+        return userDetail;
     }
 
     /**
@@ -185,7 +186,7 @@ public class UserView {
     }
 
     /**
-     * Prints the user screen after signup or sign in.
+     * Prints the user screen for instagram features
      */
     public void userScreen() {
         System.out.println(String.join(" ","Click 1 To User Post Menu\nClick 2 To Logout", "\nClick 3",
@@ -239,7 +240,12 @@ public class UserView {
         }
     }
 
-    public void setUpdateDetails(final User user) {
+    /**
+     * Sets the details of user to update
+     *
+     * @param user The user object containing user details
+     */
+    private void setUpdateDetails(final User user) {
         System.out.println("Get The User To Update The User Details");
         final User userDetails = getUser();
 
@@ -280,45 +286,8 @@ public class UserView {
         }
     }
 
-    //private static int postId = 0;
     /**
-     * Creates the post of the user.
-     */
-    /*private void createPost(final User user) {
-        final UserPost userPost = new UserPost();
-
-        userPost.setPostId(++postId);
-        userPost.setUserLocation(getLocation());
-        userPost.setUserCaption(getCaption());
-        USER_CONTROLLER.createPost(user, userPost);
-        System.out.println("User Posted Successfully");
-        postMenu(user);
-    }
-
-    /**
-     * Gets user location.
-     *
-     * @return The location of the user.
-     */
-    /*private String getLocation() {
-        System.out.println("Enter Your Location:");
-
-        return SCANNER.nextLine();
-    }
-
-    /**
-     * Gets user caption.
-     *
-     * @return The caption of the user.
-     */
-    /*private String getCaption() {
-        System.out.println("Enter Your Caption:");
-
-        return SCANNER.nextLine();
-    }*/
-
-    /**
-     * Users to logout the page.
+     * Users to log out the page.
      */
     private void logout() {
         System.out.println("Logged Out Successfully");
@@ -326,7 +295,7 @@ public class UserView {
     }
 
     /**
-     * User to enter sign in details and calls the controller to sign in the user.
+     * Users to enter sign in details and calls the controller to sign in the user.
      */
     private void signIn() {
         final User user = new User();

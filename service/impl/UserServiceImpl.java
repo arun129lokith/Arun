@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Handles the logic of instagram application.
+ * Implements the service of the user
  *
  * @author Arun
  * @version 1.1
@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean signUp(final User user) {
-
         if (USERS.containsKey(user.getEmail())) {
             System.out.println("User Email Is Already Exists");
 
@@ -55,6 +54,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUser(final Long userId) {
 
@@ -68,20 +70,17 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<User> getAllUsers() {
         return USERS.values();
     }
 
-    /*public final void createPost(UserPost userPost) {
-        userPost.setPostId(++postId);
-        USER_POSTS.put(userId, userPost);
-    }*/
-
-    /*public Map<Long, UserPost> displayAllPosts(final long userId) {
-        return (Map<Long, UserPost>) USER_POSTS.get(userId);
-    }*/
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValidUpdate(final User user) {
 
@@ -99,6 +98,9 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteUserAccount(final String email) {
 

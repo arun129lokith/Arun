@@ -7,6 +7,12 @@ import com.instagram.view.validation.UserValidation;
 
 import java.util.Scanner;
 
+/**
+ * Represents the posts, posted by user
+ *
+ * @author Arun
+ * @version 1.1
+ */
 
 public class PostView {
 
@@ -20,9 +26,9 @@ public class PostView {
      * Prints the post menu of the user.
      */
     public void postMenu(final User user) {
-        System.out.println(String.join(" ","Click 1 To Create Post\nClick 2 To Display Post",
-                "\nClick 3 To Delete Post\nClick 4 To Update Post\nDo You Want To Continue Press 'Any Word' And Press",
-                "'No' For User Screen\nEnter Your Message:"));
+        System.out.println(String.join(" ","Click 1 To Create Post\nClick 2 To Display All Post",
+                "\nClick 3 To Delete Post\nClick 4 To Update Post\nClick 5 To Display Post\nClick 6 To User Screen",
+                "\nDo You Want To Continue Press 'Any Word' And Press 'No' For User Screen\nEnter Your Message:"));
 
         if (USER_VALIDATION.isExit(SCANNER.nextLine())) {
             USER_VIEW.userScreen();
@@ -33,24 +39,32 @@ public class PostView {
                 createPost(user);
                 break;
             case 2:
-                displayAllPost();
+                displayAllPost(user);
                 break;
             case 3:
-                deletePost();
+                deletePost(user);
                 break;
             case 4:
-                updatePost();
+                updatePost(user);
                 break;
             case 5:
                 getPostDetail();
                 break;
+            case 6:
+                USER_VIEW.userScreen();
+                break;
             default:
-                System.out.println("Invalid User Choice. Please Enter The Choice In The Range[1-5]");
+                System.out.println("Invalid User Choice. Please Enter The Choice In The Range[1-6]");
                 postMenu(user);
                 break;
         }
     }
 
+    /**
+     * Creates the post of the user
+     *
+     * @param user The user object containing user details
+     */
     private void createPost(final User user) {
         final UserPost userPost = new UserPost();
 
@@ -65,28 +79,54 @@ public class PostView {
         postMenu(user);
     }
 
-    public void displayAllPost() {
+    /**
+     * Prints the all posts, posted by user
+     *
+     * @param user The user object containing user details
+     */
+    public void displayAllPost(final User user) {
         final User userDetails = USER_VIEW.getUser();
 
         System.out.println(POST_CONTROLLER.getAllPost(userDetails));
+        postMenu(user);
     }
 
+    /**
+     * Gets the post detail of the user
+     *
+     * @return {@link UserPost} user post
+     */
     public UserPost getPostDetail() {
-        System.out.println("Enter Your PostId:");
-        //System.out.println(POST_CONTROLLER.getPostDetail(Integer.valueOf(SCANNER.nextLine())));
+        final User userDetail = USER_VIEW.getUser();
 
-        return POST_CONTROLLER.getPostDetail(Integer.valueOf(SCANNER.nextLine()));
+        System.out.println("Enter Your PostId:");
+        final UserPost getDetails = POST_CONTROLLER.getPostDetail(Integer.valueOf(SCANNER.nextLine()),  userDetail);
+
+        System.out.println(getDetails);
+
+        return getDetails;
     }
 
-    public void deletePost() {
+    /**
+     * Users to delete the post
+     *
+     * @param user The user object containing user details
+     */
+    public void deletePost(final User user) {
         final User userDetail = USER_VIEW.getUser();
 
         System.out.println("Enter Your PostId:");
         System.out.println(POST_CONTROLLER.deletePost(Integer.valueOf(SCANNER.nextLine()), userDetail) ?
                 "Post Deleted Successfully" : "Post Not Found");
+        postMenu(user);
     }
 
-    private void updatePost() {
+    /**
+     * Sets the details of the user post to update
+     *
+     * @param user The user object containing user details
+     */
+    private void updatePost(final User user) {
         final UserPost userPost = new UserPost();
         final UserPost postDetail = getPostDetail();
         final User userDetail = USER_VIEW.getUser();
@@ -109,9 +149,10 @@ public class PostView {
 
         if (POST_CONTROLLER.updatePost(userDetail, userPost)) {
             System.out.println("User Post Updated Successfully");
+            postMenu(user);
         } else {
             System.out.println("User Post Not Updated");
-            updatePost();
+            updatePost(user);
         }
     }
 

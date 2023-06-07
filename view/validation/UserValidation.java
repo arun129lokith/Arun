@@ -15,7 +15,7 @@ public class UserValidation {
      * @return True if username is valid, false otherwise.
      */
     public boolean validateUserName(final String userName) {
-        return userName.matches("^[a-zA-Z0-9]+(\\s[a-zA-z0-9]+)*{6,20}$");
+        return userName.matches("^[a-zA-Z]+(\\s[a-zA-z\\d]+){6,20}$");
     }
 
     /**
@@ -25,7 +25,7 @@ public class UserValidation {
      * @return True if email is valid, false otherwise.
      */
     public boolean validateEmail(final String email) {
-        return email.matches("^[a-z[0-9]_.-]+@[a-z]{5,10}.[a-z]{2,3}$");
+        return email.matches("^[a-z][a-z\\d._]+@[a-z]{5,10}.[a-z]{2,3}$");
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserValidation {
      * @return True if password is valid, false otherwise.
      */
     public boolean validatePassword(final String password) {
-        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$");
+        return password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$");
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserValidation {
      * @return True if mobile number is valid, false otherwise.
      */
     public boolean validateMobileNumber(final String mobileNumber) {
-        return mobileNumber.matches("^[6-9][0-9]{9}$");
+        return mobileNumber.matches("^[6-9]\\d{9}$");
     }
 
     /**
@@ -61,8 +61,14 @@ public class UserValidation {
         return false;
     }
 
-    public boolean isExit(final String exit) {
-        return "No".equalsIgnoreCase(exit) || "N".equalsIgnoreCase(exit);
+    /**
+     * Validates the user for exit
+     *
+     * @param exitChoice The exit choice of the user
+     * @return True if exit choice condition is satisfied, false otherwise
+     */
+    public boolean isExit(final String exitChoice) {
+        return "No".equalsIgnoreCase(exitChoice) || "N".equalsIgnoreCase(exitChoice);
     }
 }
 

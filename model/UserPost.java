@@ -1,5 +1,11 @@
 package com.instagram.model;
 
+/**
+ * Represents the post of the user
+ *
+ * @author Arun
+ * @version 1.1
+ */
 public class UserPost {
 
     private User userDetail;
