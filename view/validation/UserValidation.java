@@ -15,7 +15,7 @@ public class UserValidation {
      * @return True if username is valid, false otherwise.
      */
     public boolean validateUserName(final String userName) {
-        return userName.matches("^[a-zA-Z]+(\\s[a-zA-z\\d]+){6,20}$");
+        return userName.matches("^[a-zA-Z]+[a-zA-z\\s]{6,20}$");
     }
 
     /**
